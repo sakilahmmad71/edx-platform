@@ -16,6 +16,8 @@ aiohttp==3.8.3
     # via geoip2
 aiosignal==1.2.0
     # via aiohttp
+algoliasearch==2.6.2
+    # via -r requirements/edx/base.in
 amqp==5.1.1
     # via kombu
 analytics-python==1.4.0
@@ -965,6 +967,7 @@ regex==2022.10.31
 requests==2.28.1
     # via
     #   -r requirements/edx/paver.txt
+    #   algoliasearch
     #   analytics-python
     #   coreapi
     #   django-oauth-toolkit

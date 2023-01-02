@@ -2,6 +2,7 @@
 Helper Methods
 """
 
+from algoliasearch.search_client import SearchClient
 from braze.client import BrazeClient
 from django.conf import settings
 from optimizely import optimizely
@@ -53,3 +54,20 @@ class OptimizelyClient:
             cls.optimizely_client = optimizely.Optimizely(config_manager=config_manager)
 
         return cls.optimizely_client
+
+
+class AlgoliaClient:
+    """ Class for instantiating an Algolia search client instance. """
+    algolia_client = None
+    algolia_app_id = settings.ALGOLIA_APP_ID
+    algolia_search_api_key = settings.ALGOLIA_SEARCH_API_KEY
+
+    @classmethod
+    def get_algolia_client(cls):
+        if not cls.algolia_client:
+            if not (cls.algolia_app_id and cls.algolia_search_api_key):
+                return None
+
+            cls.algolia_client = SearchClient.create(cls.algolia_app_id, cls.algolia_search_api_key)
+
+        return cls.algolia_client

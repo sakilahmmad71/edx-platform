@@ -2,9 +2,11 @@
 Learner Dashboard API v0 URLs.
 """
 
+from django.conf import settings
 from django.urls import re_path
 
 from lms.djangoapps.learner_dashboard.api.v0.views import (
+    AlgoliaCoursesSearchView,
     Programs,
     ProgramProgressDetailView,
     CourseRecommendationApiView
@@ -15,6 +17,9 @@ UUID_REGEX_PATTERN = r'[0-9a-fA-F]{8}-?[0-9a-fA-F]{4}-?4[0-9a-fA-F]{3}-?[89abAB]
 app_name = 'v0'
 urlpatterns = [
     re_path(r'^recommendation/courses/$', CourseRecommendationApiView.as_view(), name='courses'),
+    re_path(fr'^algolia/courses/{settings.COURSE_ID_PATTERN}/$',
+            AlgoliaCoursesSearchView.as_view(),
+            name='algolia_courses'),
     re_path(
         fr'^programs/(?P<enterprise_uuid>{UUID_REGEX_PATTERN})/$',
         Programs.as_view(),
